@@ -33,13 +33,13 @@ OP_RETURN_MAX_SIZE = 40 # bytes
 
 
 # Currency agnosticism
-BTC = 'DOGE'
-XCP = 'XDP'
+BTC = 'XTO'
+XCP = 'NGM'
 
-BTC_NAME = 'Dogecoin'
-BTC_CLIENT = 'dogecoind'
-XCP_NAME = 'Dogeparty'
-XCP_CLIENT = 'dogepartyd'
+BTC_NAME = 'Tao'
+BTC_CLIENT = 'taod'
+XCP_NAME = 'Negotium'
+XCP_CLIENT = 'negotiumd'
 
 DEFAULT_RPC_PORT_TESTNET = 15000
 DEFAULT_RPC_PORT = 5000
@@ -47,18 +47,18 @@ DEFAULT_RPC_PORT = 5000
 DEFAULT_BACKEND_RPC_PORT_TESTNET = 44555
 DEFAULT_BACKEND_RPC_PORT = 22555
 
-UNSPENDABLE_TESTNET = 'ndogepartyxxxxxxxxxxxxxxxxxxwpsZCH'
-UNSPENDABLE_MAINNET = 'DDogepartyxxxxxxxxxxxxxxxxxxw1dfzr'
+UNSPENDABLE_TESTNET = 'tnegotiumxxxxxxxxxxxxxxxxxxxwpsZCH'
+UNSPENDABLE_MAINNET = 'TNegotiumxxxxxxxxxxxxxxxxxxxw1dfzr'
 
-ADDRESSVERSION_TESTNET = b'q'
+ADDRESSVERSION_TESTNET = b't'
 # PRIVATEKEY_VERSION_TESTNET =
-ADDRESSVERSION_MAINNET = b'\x1e'
+ADDRESSVERSION_MAINNET = b'\x42'
 # PRIVATEKEY_VERSION_MAINNET =
 MAGIC_BYTES_TESTNET = b'\xfa\xbf\xb5\xda'   # For bip-0010
-MAGIC_BYTES_MAINNET = b'\xf9\xbe\xb4\xd9'   # For bip-0010
+MAGIC_BYTES_MAINNET = b'\x1d\xd1\x1e\xe1'   # For bip-0010
 
-WIF_PREFIX_TESTNET = b'\xf1'
-WIF_PREFIX_MAINNET = b'\x9e'
+WIF_PREFIX_TESTNET = b'\x8a'
+WIF_PREFIX_MAINNET = b'\x4c'
 
 BLOCK_FIRST_TESTNET_TESTCOIN = 124678
 BURN_START_TESTNET_TESTCOIN = BLOCK_FIRST_TESTNET_TESTCOIN
@@ -76,15 +76,15 @@ BLOCK_FIRST_MAINNET = BLOCK_FIRST_MAINNET_TESTCOIN
 BURN_START_MAINNET = BURN_START_MAINNET_TESTCOIN
 BURN_END_MAINNET = BURN_START_MAINNET + 30*24*60    # 30 days burn period with 1 min target time per block.
 
-MAX_BURN_BY_ADDRESS = 5000000 * UNIT 	# 5M DOGE.
-BURN_MULTIPLIER = .001 				        # from 1.5 to 1 XDP per 1000 DOGE.
+MAX_BURN_BY_ADDRESS = 1 * UNIT 						# 5M XTO.
+BURN_MULTIPLIER = 100000000000 				        # from 1.5 to 1 NGM per 1000 XTO.
 
 # Protocol defaults
 # NOTE: If the DUST_SIZE constants are changed, they MUST also be changed in counterblockd/lib/config.py as well
-DEFAULT_REGULAR_DUST_SIZE = UNIT 		  # 1 DOGE; there is not dust limit in Dogecoin, but every txout < 1 DOGE, cost 1 DOGE in fee
-DEFAULT_MULTISIG_DUST_SIZE = UNIT * 2 # 2 DOGE.
-DEFAULT_OP_RETURN_VALUE = 0 			    # 0 DOGE.
-DEFAULT_FEE_PER_KB = UNIT             # 1 DOGE.
+DEFAULT_REGULAR_DUST_SIZE = UNIT 		  # 1 XTO; there is not dust limit in Tao, but every txout < 1 XTO, cost 1 XTO in fee
+DEFAULT_MULTISIG_DUST_SIZE = UNIT * 2 # 2 XTO.
+DEFAULT_OP_RETURN_VALUE = 0 			    # 0 XTO.
+DEFAULT_FEE_PER_KB = UNIT             # 1 XTO.
 
 
 # UI defaults

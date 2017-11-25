@@ -1,64 +1,64 @@
 # Description
-Dogeparty is a fork of Counterparty, a protocol for the creation and use of decentralised financial
+Negotium is a fork of Counterparty, a protocol for the creation and use of decentralised financial
 instruments such as asset exchanges, contracts for difference and dividend
-payments. It uses Dogecoin as a transport layer. The contents of this
-repository, `dogepartyd`, constitute the reference implementation of the
+payments. It uses Tao as a transport layer. The contents of this
+repository, `negotiumd`, constitute the reference implementation of the
 protocol.
 
 The Counterparty protocol specification may be found at <http://counterparty.io/docs/protocol/>
 and the original counterpartyd implementation at <https://github.com/CounterpartyXCP/counterpartyd>.
 
-We provide a Docker recipe to run dogepartyd easily: <https://github.com/Dogeparty/dogepartyd-docker>.
+We provide a Docker recipe to run negotiumd easily: <https://github.com/Negotium/negotiumd-docker>.
 
 
 # Dependencies
 * [Python 3](http://python.org)
-* Python 3 packages: apsw, requests, appdirs, prettytable, python-dateutil, json-rpc, tornado, flask, Flask-HTTPAuth, pycoin, pyzmq(v2.2+), pycrypto (see [this link](https://github.com/Dogeparty/dogepartyd/blob/master/pip-requirements.txt) for exact working versions)
-* Dogecoind
+* Python 3 packages: apsw, requests, appdirs, prettytable, python-dateutil, json-rpc, tornado, flask, Flask-HTTPAuth, pycoin, pyzmq(v2.2+), pycrypto (see [this link](https://github.com/Negotium/negotiumd/blob/master/pip-requirements.txt) for exact working versions)
+* Taod
 
 # Installation
 
-**NOTE: This section covers manual installation of dogepartyd. If you want more of
-an automated approach to dogepartyd installation for Windows and Linux, see [this link](http://dogepartyd-build.readthedocs.org/en/latest/).**
+**NOTE: This section covers manual installation of negotiumd. If you want more of
+an automated approach to negotiumd installation for Windows and Linux, see [this link](http://negotiumd-build.readthedocs.org/en/latest/).**
 
-In order for dogepartyd to function, it must be able to communicate with a
-running instance of Dogecoind or Dogecoin-Qt, which handles many Dogecoin‐specific
+In order for negotiumd to function, it must be able to communicate with a
+running instance of Taod or Tao-Qt, which handles many Tao‐specific
 matters on its behalf, including all wallet and private key management. For
-such interoperability, Dogecoind must be run with the following options:
+such interoperability, Taod must be run with the following options:
 `-txindex=1` `-server=1`. This may require the setting of a JSON‐RPC password,
-which may be saved in Dogecoind’s configuration file.
+which may be saved in Taod’s configuration file.
 
-dogepartyd needs to know at least the JSON‐RPC password of the Dogecoind with
+negotiumd needs to know at least the JSON‐RPC password of the Taod with
 which it is supposed to communicate. The simplest way to set this is to
-include it in all command‐line invocations of dogepartyd, such as
-`./dogepartyd.py --rpc-password=PASSWORD ACTION`. To make this and other
-options persistent across dogepartyd sessions, one may store the desired
-settings in a configuration file specific to dogepartyd.
+include it in all command‐line invocations of negotiumd, such as
+`./negotiumd.py --rpc-password=PASSWORD ACTION`. To make this and other
+options persistent across negotiumd sessions, one may store the desired
+settings in a configuration file specific to negotiumd.
 
-Note that the syntaxes for the countpartyd and the Dogecoind configuraion
-files are not the same. A Dogecoind configuration file looks like this:
+Note that the syntaxes for the countpartyd and the Taod configuraion
+files are not the same. A Taod configuration file looks like this:
 
-	rpcuser=dogecoinrpc
+	rpcuser=taorpc
 	rpcpassword=PASSWORD
 	testnet=1
 	txindex=1
 	server=1
 
-However, a dogepartyd configuration file looks like this:
+However, a negotiumd configuration file looks like this:
 
 	[Default]
-	dogecoind-rpc-password=PASSWORD
+	taod-rpc-password=PASSWORD
 
 Note the change in hyphenation between `rpcpassword` and `rpc-password`.
 
-If and only if dogepartyd is to be run on the Dogecoin testnet, with the
-`--testnet` CLI option, Dogecoind must be set to do the same (`-testnet=1`).
-dogepartyd may run with the `--testcoin` option on any blockchain,
+If and only if negotiumd is to be run on the Tao testnet, with the
+`--testnet` CLI option, Taod must be set to do the same (`-testnet=1`).
+negotiumd may run with the `--testcoin` option on any blockchain,
 however.
 
 # Updating your requirements
 
-Sometimes the underlying package requirements may change for `dogepartyd`. If you build and installed it from scratch,
+Sometimes the underlying package requirements may change for `negotiumd`. If you build and installed it from scratch,
 you can manually update these requirements by executing something like:
 
     ```pip install --upgrade -r pip-requirements.txt```
@@ -66,12 +66,12 @@ you can manually update these requirements by executing something like:
 # Test suite
 
 The test suite is invoked with `py.test` in the root directory of the repository.
-Dogecoind testnet and mainnet must run on the default ports and use the same rpcuser and rpcpassword.
-Do not include the following values in dogepartyd.conf: dogecoind-rpc-connect, bitcoind-rpc-port, rpc-host, rpc-port and testnet.
+Taod testnet and mainnet must run on the default ports and use the same rpcuser and rpcpassword.
+Do not include the following values in negotiumd.conf: taod-rpc-connect, bitcoind-rpc-port, rpc-host, rpc-port and testnet.
 
 # Usage
-The command‐line syntax of dogepartyd is generally that of
-`./dogepartyd.py {OPTIONS} ACTION {ACTION-OPTIONS}`. There is a one action
+The command‐line syntax of negotiumd is generally that of
+`./negotiumd.py {OPTIONS} ACTION {ACTION-OPTIONS}`. There is a one action
 per message type, which action produces and broadcasts such a message; the
 message parameters are specified following the name of the message type. There
 are also actions which do not correspond to message types, but rather exist to
@@ -79,7 +79,7 @@ provide information about the state of the Counterparty network, e.g. current
 balances or open orders.
 
 For a summary of the command‐line arguments and options, see
-`./dogepartyd.py --help`.
+`./negotiumd.py --help`.
 
 # Versioning
 * Major version changes require a full rebuild of the database.
@@ -91,7 +91,7 @@ For a summary of the command‐line arguments and options, see
 * Quantities of indivisible assets are written as integers.
 * All other quantities, i.e. prices, odds, leverages, feed values and target
 values, fee multipliers, are specified to four decimal places.
-* dogepartyd identifies an Order, Bet, Order Match or Bet Match by an
+* negotiumd identifies an Order, Bet, Order Match or Bet Match by an
 ‘Order ID’, ‘Bet ID’, ‘Order Match ID’, or ‘Bet Match ID’, respectively. Match
 IDs are concatenations of the hashes of the two transactions which compose the
 corresponding Match, in the order of their appearances in the blockchain.
@@ -102,7 +102,7 @@ The following examples are abridged for parsimony.
 
 * Server
 
-	The `server` command should always be running in the background. All other commands will fail if the index of the last block in the database is less than that of the last block seen by Dogecoind.
+	The `server` command should always be running in the background. All other commands will fail if the index of the last block in the database is less than that of the last block seen by Taod.
 
 * Burn
 
@@ -115,23 +115,23 @@ The following examples are abridged for parsimony.
 	--to=n3BrDB6zDiEPWEE6wLxywFb4Yp9ZY5fHM7
 	```
 
-* Buy DOGE for XDP
+* Buy XTO for NGM
 
 	```
-	order --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --get-quantity=10 --get-asset=DOGE
-	--give-quantity=20 --give-asset=XDP --expiration=10 --fee_required=.001
+	order --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --get-quantity=10 --get-asset=XTO
+	--give-quantity=20 --give-asset=NGM --expiration=10 --fee_required=.001
 	```
 
-* Buy BBBC for DOGE
+* Buy BBBC for XTO
 
 	```
 	order --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --get-quantity=10 --get-asset=BBBC
-	--give-quantity=20 --give-asset=DOGE --expiration=10 --fee_provided=0.001
+	--give-quantity=20 --give-asset=XTO --expiration=10 --fee_provided=0.001
 	```
 
-* Buy XDP for BBBC
+* Buy NGM for BBBC
 	```
-	order --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --get-quantity=10 --get-asset=XDP
+	order --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --get-quantity=10 --get-asset=NGM
 	--give-quantity=20 --give-asset=BBBC --expiration=10
 	```
 
@@ -148,18 +148,18 @@ The following examples are abridged for parsimony.
 
 * Broadcast
 	```
-	broadcast --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --text="Dogecoin price feed" --value=825.22
+	broadcast --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --text="Tao price feed" --value=825.22
 	--fee-multiplier=0.001
 	```
 
-	Note: for some users dogepartyd has trouble parsing spaces in the `--text` argument. One workaround is to
-		add an additional set of quotes. For example, `--text='"Dogecoin price feed"'`.
+	Note: for some users negotiumd has trouble parsing spaces in the `--text` argument. One workaround is to
+		add an additional set of quotes. For example, `--text='"Tao price feed"'`.
 
 * Bet
 
 	Equal/Not Equal Bet:
 
-	Example: Bet on Super Bowl Feed. Denver vs. Seattle. Feed value of 1 means Seattle Wins. Feed value of 2 means 	        	Denver Wins. This command places a 1 XDP bet on the Super Bowl Feed for Seattle to win, paying out 2 to         	1. The bet will expire in 100 blocks and the settlement value of the bet is based on the first feed 	                update after the deadline timestamp of February 3, 2014 1:39 PM US Eastern Standard Time (UTC-0500)
+	Example: Bet on Super Bowl Feed. Denver vs. Seattle. Feed value of 1 means Seattle Wins. Feed value of 2 means 	        	Denver Wins. This command places a 1 NGM bet on the Super Bowl Feed for Seattle to win, paying out 2 to         	1. The bet will expire in 100 blocks and the settlement value of the bet is based on the first feed 	                update after the deadline timestamp of February 3, 2014 1:39 PM US Eastern Standard Time (UTC-0500)
 	```
 	bet --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --feed-address=n3BrDB6zDiEPWEE6wLxywFb4Yp9ZY5fH --bet-type=Equal
 	--deadline=2014-02-03T13:39:00-0500 --wager=1 --counterwager=2 --target-value=1 --expiration=100
@@ -167,7 +167,7 @@ The following examples are abridged for parsimony.
 
 	Contract for Difference:
 
-	Example: Bet on Dogecoin Price Feed. This command places a bearish (short) 1 XDP wager on the price of DOGE/USD 				with 2X leverage. The bet will expire in 100 blocks and the settlement value of the bet is based 			on the first feed update after the deadline timestamp of February 3, 2014 1:39 PM US Eastern 					Standard Time (UTC-0500)
+	Example: Bet on Tao Price Feed. This command places a bearish (short) 1 NGM wager on the price of XTO/USD 				with 2X leverage. The bet will expire in 100 blocks and the settlement value of the bet is based 			on the first feed update after the deadline timestamp of February 3, 2014 1:39 PM US Eastern 					Standard Time (UTC-0500)
 	```
 	bet --source=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns --feed-address=n3BrDB6zDiEPWEE6wLxywFb4Yp9ZY5fH --bet-type=BearCFD --deadline=2014-02-03T13:39:00-0500 --wager=1 --counterwager=1 --leverage=10080 --expiration=100
 	```
@@ -200,25 +200,25 @@ The following examples are abridged for parsimony.
 
 * Market
 
-	The `market` action prints out tables of open orders, open bets, feeds, and order matches currently awaiting 	        Dogecoin payments from one of your addresses.
+	The `market` action prints out tables of open orders, open bets, feeds, and order matches currently awaiting 	        Tao payments from one of your addresses.
 
 	It is capable of filtering orders by assets to be bought and sold.
 
 	Example:
 
-	To filter the market to only show offers to sell (give) DOGE:
+	To filter the market to only show offers to sell (give) XTO:
 	```
-	market --give-asset=DOGE
-	```
-
-	To filter the market to only show offers to buy (get) DOGE:
-	```
-	market --get-asset=DOGE
+	market --give-asset=XTO
 	```
 
-	To filter the market to only show offers to sell DOGE for XDP:
+	To filter the market to only show offers to buy (get) XTO:
 	```
-	market --give-asset=DOGE --get-asset=XDP
+	market --get-asset=XTO
+	```
+
+	To filter the market to only show offers to sell XTO for NGM:
+	```
+	market --give-asset=XTO --get-asset=NGM
 	```
 
 * Asset
