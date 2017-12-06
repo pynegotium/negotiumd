@@ -1,5 +1,5 @@
 env
-#lib/python2.7
+lib/python2.7
 docs/_build/*
 
 test/counterpartyd.unittest.db

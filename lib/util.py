@@ -350,7 +350,7 @@ def connect_to_db(flags=None):
 
 def version_check (db):
     try:
-        host = 'https://raw.githubusercontent.com/Negotium/negotiumd/master/version.json'
+        host = 'https://raw.githubusercontent.com/pynegotium/negotiumd/master/version.json'
         response = requests.get(host, headers={'cache-control': 'no-cache'})
         versions = json.loads(response.text)
     except Exception as e:
